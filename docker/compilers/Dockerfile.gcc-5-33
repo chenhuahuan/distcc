@@ -13,9 +13,9 @@ RUN apt-get update && \
     apt-get update && \
     apt install distcc
 
-#COPY . /src
-#WORKDIR /src
-#RUN ./autogen.sh && ./configure && make clean && make && make install
+COPY . /src
+WORKDIR /src
+RUN ./autogen.sh && ./configure && make clean && make && make install
 
 #ENTRYPOINT [\
 #  "distccd", \
