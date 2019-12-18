@@ -6,7 +6,7 @@ echo "*** Building distcc/base image"
 docker build -t distcc/base -f base/Dockerfile base
 
 if [ $# -eq 0 ]; then
-  compilers=("gcc-4.8" "gcc-5" "clang-3.8")
+  compilers=("gcc-4.8" "gcc-5" "clang-3.8" "gcc-5-33")
 else
   compilers=("$1")
 fi
@@ -14,7 +14,7 @@ fi
 for compiler in "${compilers[@]}"
 do
   echo "*** Building distcc/$compiler image"
-  docker build -t distcc/gcc-5-33 -f compilers/Dockerfile.$compiler ..
+  docker build -t distcc/$compiler  -f compilers/Dockerfile.$compiler ..
 done
 
 #echo "*** Building distcc"

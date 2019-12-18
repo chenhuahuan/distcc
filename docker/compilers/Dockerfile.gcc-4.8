@@ -4,8 +4,32 @@ LABEL maintainer=""
 
 RUN apt-get update && \
     apt-get install gcc-4.8 \
+                    vim \
                     gcc-multilib \
                     g++-4.8 \
                     g++-multilib && \
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50 && \
     update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-4.8 50
+
+COPY . /src
+WORKDIR /src
+RUN ./autogen.sh && ./configure && make clean && make && make install
+
+#ENTRYPOINT [\
+#  "distccd", \
+#  "--daemon", \
+#  "--no-detach", \
+#  "--user", "distcc", \
+#  "--port", "3632", \
+#  "--stats", \
+#  "--stats-port", "3633", \
+#  "--log-stderr", \
+#  "--listen", "0.0.0.0", \
+#  "--make-me-a-botnet" \
+#]
+#
+#CMD [\
+#  "--allow", "10.61.81.0/24",\
+#  "--nice", "5",\
+#  "--jobs", "5"\
+#]
